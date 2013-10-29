@@ -3,7 +3,7 @@ processing-project-template
 
 Custom project template and build ant file.
 
-# Step 1 : Create a project reflecting the template
+## Step 1 : Create a project reflecting the template
 
 ### Get a copy of the template
 
@@ -31,7 +31,7 @@ If the project already exists, and you want to use the build file :
 2. Try to run yout project and make sure it still works correctly. If not, read error log in the console, and take a look at your build path : some paths may have changed.
 
 
-# Step 2 : Edit properties file
+## Step 2 : Edit properties file
 
 Edit `resources/build.properties` with your favorite text editor, and modify properties to reflect your project.
 
@@ -58,8 +58,9 @@ And then, Windows specific variables :
 
 - **jvm.version.min** : minimum JVM version to allow (ex: 1.6.0)
 - **jvm.version.max** : maximum JVM version to allow (ex: 1.6.9)
+- **lauch4j.path** : the absolute path where you installed launch4j (see step 3)
 
-# Step 3 : Launch4j (to bundle windows executable)
+## Step 3 : Launch4j (to bundle windows executable)
 
 Launch4j est utilisé pour créer un exe à partir de n'importe quel plate-forme, y compris OSX. Si vous ne souhaitez pas créer un fichier exe pour Windows, sautez cette étape.
 
@@ -126,7 +127,7 @@ Définir la tâche *launch4j* et l'exécuter.
 ```
 
 
-# Step 4 : Build
+## Step 4 : Build
 
 In Eclipse, open *Ant* window and drag `build.xml`. Click on the arrow to expand the possible build list.
 
