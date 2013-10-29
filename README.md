@@ -15,16 +15,15 @@ Or, using the Terminal, clone the template repository to a folder of your choice
 
 ```
 git clone https://github.com/jmcouillard/processing-project-template.git
-
 ```
 
 ### Create a compatible Eclipse project
 
 If you want to create a new, empty project :
 
-1. Copier et renommer le dossier `processing-project-template` dans votre *workspace*.
-2. Importer le nouveau dossier dans Eclipse en tant que nouveau projet.
-3. Commencer à coder dans `src/com/MyProject.java`.
+1. Copy and rename `processing-project-template` folder in your Eclipse *workspace*.
+2. Import the copied folder in Eclipse as a new project.
+3. Start your coding in `src/com/MyProject.java`.
 
 If the project already exists, and you want to use the build file :
 
