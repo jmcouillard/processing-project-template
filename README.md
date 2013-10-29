@@ -27,8 +27,8 @@ If you want to create a new, empty project :
 
 If the project already exists, and you want to use the build file :
 
-1. Renommer les dossiers pour qu'ils reflète les indications de `processing-project-template` dans votre *workspace*.
-2. S'assurer que le projet est toujours fonctionnel. Si ce n'est pas le cas, reviser le Build Path.
+1. Rename and/or copy file in order to reflect file structure of `processing-project-template`.
+2. Try to run yout project and make sure it still works correctly. If not, read error log in the console, and take a look at your build path : some paths may have changed.
 
 
 # Step 2 : Edit properties file
@@ -36,7 +36,7 @@ If the project already exists, and you want to use the build file :
 Edit `resources/build.properties` with your favorite text editor, and modify properties to reflect your project.
 
 - **project.author** : you full name (human-redable)
-- **project.author.appleId** : s'applique seulement si vou avez un id developpeur (otherwise, write 'xxx')
+- **project.author.appleId** : apply only if you have a developper ID (otherwise, write 'xxx')
 - **project.name** : ptoject name (machine-readable, without space or special caracters)
 - **project.version** : two-parts version (1.0)
 - **project.fullversion** : four-parts version (1.0.0.0)
@@ -59,7 +59,7 @@ And then, Windows specific variables :
 - **jvm.version.min** : minimum JVM version to allow (ex: 1.6.0)
 - **jvm.version.max** : maximum JVM version to allow (ex: 1.6.9)
 
-# Step 3 : Launch4j (pour déploiement sur windows)
+# Step 3 : Launch4j (to bundle windows executable)
 
 Launch4j est utilisé pour créer un exe à partir de n'importe quel plate-forme, y compris OSX. Si vous ne souhaitez pas créer un fichier exe pour Windows, sautez cette étape.
 
