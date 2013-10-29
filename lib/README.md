@@ -3,6 +3,7 @@ Copy all your contributed library here (and their native files).
 You should use a structure like this one :
 
 ```
+.jar files
 -> macosx32
    .dylib files
 -> macosx64

@@ -5,6 +5,7 @@ You may copy them directly from the application, or build them from Github.
 You should use a structure like this one :
 
 ```
+.jar files
 -> macosx32
    .dylib files
 -> macosx64
