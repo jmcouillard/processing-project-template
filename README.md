@@ -1,7 +1,7 @@
 processing-project-template
 ===========================
 
-Custom project template and build ant file.
+Custom project template and build ant file. Tested with Processing 2.0.3.
 
 ## Step 1 : Create a project reflecting the template
 
@@ -71,7 +71,6 @@ Télécharger le repository, et changer de branch pour le Release 3.0.2
 ```
 git clone git://git.code.sf.net/p/launch4j/git launch4j-git
 git checkout Release_launch4j-3_0_2
-
 ```
 
 
@@ -82,7 +81,6 @@ Dans le dossier du repository, exécuter le code suivant pour créer un fichier 
 
 ```
 ant clean jar
-
 ```
 
 
@@ -92,7 +90,6 @@ D'abord aller dans le dossier bin de launch4j :
 
 ```
 cd launch4j-git/bin
-
 ```
 
 Ensuite, télécharger la plus récente version des binutils, disponible au [http://www.gnu.org/software/binutils/](http://www.gnu.org/software/binutils/). Ensuite, il faut exécuter la commande *make* pour créer les fichier binaires.
@@ -115,14 +112,12 @@ Copy launch config file to application (to avoid Cannot run program "./bin/windr
 ```
 <copy file="resources/launch4jconfig.xml" todir="${launch4j.dir}" overwrite="true" />
 <copy file="resources/icon.ico" todir="${launch4j.dir}" overwrite="true"  />
-						
 ```
 
 Définir la tâche *launch4j* et l'exécuter.
 
 ```
 <taskdef name="launch4j" classname="net.sf.launch4j.ant.Launch4jTask" classpath="${launch4j.dir}/launch4j.jar:${launch4j.dir}/lib/xstream.jar" />
-
 <launch4j configFile="${launch4j.dir}/launch4jconfig.xml" />
 ```
 
