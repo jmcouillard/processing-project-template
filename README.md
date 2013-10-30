@@ -137,7 +137,11 @@ Applications will be created in `/release` folder.
 
 ## Using SimpleOpenNI ?
 
-Build file is based on the work of ste.fielder[near]gmail.com.
+You will have a hard time configuring this build file with SimpleOpenNI on OSX because of that weird function getLibraryPathLinux() that it is used in SimpleOpenNI.java. To make it work:
+
+1. Delete al related file from the build.
+2. Recopy manually the folder named `SimpleOpenNi` into lib folder.
+3. 
 
 
 ## Acknowledgement
