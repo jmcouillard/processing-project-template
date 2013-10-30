@@ -135,4 +135,12 @@ Double-click on wanted build. If errors occur, they will be listed in the Eclips
 Applications will be created in `/release` folder.
 
 
+## Using SimpleOpenNI ?
+
+Build file is based on the work of ste.fielder[near]gmail.com.
+
+
+## Acknowledgement
+
+Build file is based on the work of ste.fielder[near]gmail.com.
 

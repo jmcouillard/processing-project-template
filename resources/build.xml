@@ -3,6 +3,7 @@
 	topic:		PROCESSING 2.0 EXPORT FROM ECLIPSE
 	date:		16-10-2013 / 16-10-2008
 	author:		jeanmaximecouillard@gmail.com / ste.fielder[near]gmail.com
+	version:	2.0.1 (30-10-2013)
 -->
 <project name="MyProject" default="1. deploy multi-plateform JAR" basedir="../">
 
@@ -15,6 +16,7 @@
 	<property name="dir.release" value="release" />
 	<property name="dir.lib" value="./lib" />
 	<property name="dir.libNat" value="./lib" />
+	<property name="absolute.path" location="./"/>
 
 	<!-- ANT procedure folders -->
 	<property name="dir.tmp" value="tmp" />
@@ -22,7 +24,7 @@
 	<property name="dir.class" value="${dir.tmp}/class" />
 	
 	<!-- launch4j plugin location -->
-	<property name="launch4j.dir" location="${lauch4j.path}" />
+	<property name="launch4j.dir" location="${launch4j.path}" />
 
 	<!-- CLEAN WORKSPACE -->
 	<target name="clean">
@@ -30,7 +32,6 @@
 		<delete dir="${dir.build}" />
 		<delete dir="${dir.class}" />
 		<delete dir="${dir.doc}" />
-		<delete dir="${dir.libs}" />
 		<delete dir="${dir.tmp}/java" />
 	</target>
 	
@@ -57,6 +58,7 @@
 		<condition property="is.OPENGL">
 			<contains string="${main}" substring="processing.opengl" casesensitive="true" />
 		</condition>
+		
 		<!-- Check for OS X -->
 		<condition property="is.OSX">
 			<os family="mac" name="Mac OS X" />
@@ -118,7 +120,6 @@
 			<fileset dir="${dir.class}" />
 			<manifest>
 				<attribute name="Main-Class" value="${main.package.name}${main.class}" />
-				<attribute name="Class-Path" value=". ./lib/${class.pathJar}" />
 				<attribute name="Build-By" value="${project.author}" />
 				<attribute name="Specification-Title" value="${main.class}" />
 				<attribute name="Specification-Version" value="${project.version}" />
@@ -129,22 +130,26 @@
 
 	<!-- Copy NATIVE LIBS TO BUILD -->
 	<target name="osx native libs">
+		
+		<mkdir dir="${dir.build}/macosx" />
+		<mkdir dir="${dir.build}/macosx32" />
+		<mkdir dir="${dir.build}/macosx64" />
 
 		<!--  Copy native libs archives to APP -->
-		<copy todir="${dir.build}/lib/macosx32" flatten="true">
+		<copy todir="${dir.build}/macosx32" flatten="true">
 			<fileset dir="${dir.libNat}" includes="**/macosx32/*.dylib" />
 		</copy>
-		<copy todir="${dir.build}/lib/macosx32/plugins" flatten="true">
+		<copy todir="${dir.build}/macosx32/plugins" flatten="true">
 			<fileset dir="${dir.libNat}" includes="**/macosx32/plugins/*.so" />
 		</copy>
-		<copy todir="${dir.build}/lib/macosx64" flatten="true">
+		<copy todir="${dir.build}/macosx64" flatten="true">
 			<fileset dir="${dir.libNat}" includes="**/macosx64/*.dylib" />
 		</copy>
-		<copy todir="${dir.build}/lib/macosx64/plugins" flatten="true">
+		<copy todir="${dir.build}/macosx64/plugins" flatten="true">
 			<fileset dir="${dir.libNat}" includes="**/macosx64/plugins/*.so" />
 		</copy>
-		<copy todir="${dir.build}/lib/macosx" flatten="true">
-			<fileset dir="${dir.libNat}" includes="**/macosx/*.*" />
+		<copy todir="${dir.build}/macosx" flatten="true">
+			<fileset dir="${dir.libNat}" includes="**/macosx/*.*" excludes="**/macosx/*.jnilib"/>
 		</copy>
 		
 	</target>
@@ -153,16 +158,16 @@
 	<target name="win native libs">
 
 		<!--  Copy native libs archives to APP -->
-		<copy todir="${dir.build}/lib/windows32" flatten="true">
+		<copy todir="${dir.build}/windows32" flatten="true">
 			<fileset dir="${dir.libNat}" includes="**/windows32/*dll" />
 		</copy>
-		<copy todir="${dir.build}/lib/windows64" flatten="true">
+		<copy todir="${dir.build}/windows64" flatten="true">
 			<fileset dir="${dir.libNat}" includes="**/windows64/*dll" />
 		</copy>
-		<copy todir="${dir.build}/lib/windows32/plugins" flatten="true">
+		<copy todir="${dir.build}/windows32/plugins" flatten="true">
 			<fileset dir="${dir.libNat}" includes="**/windows32/plugins/*.dll" />
 		</copy>
-		<copy todir="${dir.build}/lib/windows64/plugins" flatten="true">
+		<copy todir="${dir.build}/windows64/plugins" flatten="true">
 			<fileset dir="${dir.libNat}" includes="**/windows64/plugins/*.dll" />
 		</copy>
 	
@@ -171,24 +176,19 @@
 
 	<target name="1. deploy multi-plateform JAR" depends="jar, osx native libs, win native libs">
 
-			
 		<!-- Copy JAR to release -->
-		<copy todir="${dir.release}/jar" flatten="false">
-			<fileset dir="${dir.build}" includes="**/*.*" />
+		<copy todir="${dir.release}/jar/lib" flatten="false">
+			<fileset dir="${dir.build}/lib" includes="**/*.*" />
+			<fileset dir="${dir.build}" excludes="**/lib/*" />
 		</copy>
+		
 		<copy todir="${dir.release}/jar/data">
 			<fileset dir="${dir.data}" includes="**/*.*" />
 		</copy>
 
-		<mkdir dir="${dir.release}/jar/logs" />
-
 		<!-- Create SH launcher -->
 		<concat append="false" destfile="${dir.release}/jar/${main.class}-osx.sh">
-			<string>
-FILE=logs/log_$(date +%Y%m%d-%H%M%S).txt
-touch $FILE
-java -Djava.ext.dirs=lib -Djava.library.path=lib -Xms${jvm.xms}m -Xmx${jvm.xmx}m -jar  lib/${main.class}.jar | tee $FILE
-			</string>				
+			<string>java -Djava.ext.dirs=lib -Djava.library.path=lib -Xms${jvm.xms}m -Xmx${jvm.xmx}m -jar  lib/${main.class}.jar</string>				
 		</concat>
 
 		<!-- Create BAT 32-bits launcher -->
@@ -208,32 +208,13 @@ java -Djava.ext.dirs=lib -Djava.library.path=lib -Xms${jvm.xms}m -Xmx${jvm.xmx}m
 
 
 	<!-- EXPORT OSX APPLICATION -->
-	<target name="2. deploy OSX" depends="clean build, compile, osx native libs">
+	<target name="2. deploy OSX" depends="clean build, compile, osx native libs, jar">
 
 		<!-- Remove existing application -->
-		<delete dir="${main.class}.app" />
+		<delete dir="${dir.release}/osx/${main.class}.app" />
 
 		<!-- Check requirements -->
 		<fail unless="is.OSX" message="Mac .app deploy works on Mac OS X only." />
-		<fail unless="main.class" message="ERROR: ANT Project name not defined. Must be the name of your project man class." />
-		<fail unless="project.name" message="ERROR: Project name not defined. Needed for setting  application name." />
-
-		<!-- Copy jar archives -->
-		<copy todir="${dir.build}" flatten="true">
-			<fileset dir="${dir.lib}" includes="**/*.jar " />
-			<fileset dir="${dir.libNat}" includes="**/*.jnilib" />
-		</copy>
-		
-		<!-- Create Main JAR -->
-		<jar jarfile="${dir.build}/${main.class}.jar">
-			<fileset dir="${dir.class}" />
-			<manifest>
-				<attribute name="Main-Class" value="${main.package.name}${main.class}" />
-				<attribute name="Build-By" value="${project.author}" />
-				<attribute name="Specification-Title" value="${main.class}" />
-				<attribute name="Specification-Version" value="${project.version}" />
-			</manifest>
-		</jar>
 
 		<!-- Create .app bundle folder structure -->
 		<mkdir dir="${dir.release}/osx/${project.name}.app" />
@@ -242,7 +223,6 @@ java -Djava.ext.dirs=lib -Djava.library.path=lib -Xms${jvm.xms}m -Xmx${jvm.xmx}m
 		<mkdir dir="${dir.release}/osx/${project.name}.app/Contents/Resources" />
 		<mkdir dir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java" />
 		<mkdir dir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java/data" />
-		<mkdir dir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java/plugins" />
 		<echo file="${dir.release}/osx/${project.name}.app/Contents/PkgInfo" message="APPL${project.author.appleId}" />
 		<!-- Copy exec JavaApplicationStub without turning it into a txt -->
 		<exec executable="cp">
@@ -270,23 +250,12 @@ java -Djava.ext.dirs=lib -Djava.library.path=lib -Xms${jvm.xms}m -Xmx${jvm.xmx}m
 			<replacefilter token="PROJECT_NAME" value="${project.name}" />
 			<replacefilter token="PROJECT_PACKAGE" value="${main.package.name}${main.class}" />
 			<replacefilter token="PROJECT_VERSION" value="${project.version}" />
-			<replacefilter token="CLASS_PATH" value="$JAVAROOT/${class.pathApp}" />
+			<replacefilter token="CLASS_PATH" value="$JAVAROOT/${class.pathApp}:$JAVAROOT/macosx" />
 			<replacefilter token="JVM_VERSION" value="${jvm.version}" />
 			<replacefilter token="JVM_XMS" value="${jvm.xms}" />
 			<replacefilter token="JVM_XMX" value="${jvm.xmx}" />
 			<replacefilter token="OSX_SAFEPOS" value="${osx.safeposition}" />
 		</replace>
-		
-		<!--  Copy native libs archives to APP -->
-		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java/macosx" flatten="false">
-			<fileset dir="${dir.build}/lib/macosx" includes="**/*.jnilib" />
-		</copy>
-		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java/macosx32" flatten="false">
-			<fileset dir="${dir.build}/lib/macosx32" includes="**/*.*" />
-		</copy>
-		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java/macosx64" flatten="false">
-			<fileset dir="${dir.build}/lib/macosx64" includes="**/*.*" />
-		</copy>
 
 		<!-- Copy application icon to APP -->
 		<copy file="resources/application.icns" todir="${dir.release}/osx/${project.name}.app/Contents/Resources/" />
@@ -294,8 +263,20 @@ java -Djava.ext.dirs=lib -Djava.library.path=lib -Xms${jvm.xms}m -Xmx${jvm.xmx}m
 		<!-- Copy jar archives to APP -->
 		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java" flatten="true">
 			<fileset dir="${dir.build}" includes="**/*.jar" />
+			<fileset dir="${dir.build}" includes="**/*.jnilib" />
 		</copy>
 
+		<!--  Copy native libs archives to APP -->
+		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java" flatten="false">
+			<fileset dir="${dir.build}/macosx" includes="**/*.jnilib" />
+		</copy>
+		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java/macosx32" flatten="false">
+			<fileset dir="${dir.build}/macosx32" includes="**/*.*" />
+		</copy>
+		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java/macosx64" flatten="false">
+			<fileset dir="${dir.build}/macosx64" includes="**/*.*" />
+		</copy>
+		
 		<!-- Copy data folder to APP -->
 		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java/data" flatten="false">
 			<fileset dir="${dir.data}" includes="**/*.*" />
@@ -308,7 +289,7 @@ java -Djava.ext.dirs=lib -Djava.library.path=lib -Xms${jvm.xms}m -Xmx${jvm.xmx}m
 		<antcall target="osx.dmg" />
 
 		<!-- Remove temp folder -->
-		<delete dir="${dir.tmp}" />
+		<delete dir="${dir.tmp}" /> 
 
 	</target>
 
@@ -342,9 +323,18 @@ java -Djava.ext.dirs=lib -Djava.library.path=lib -Xms${jvm.xms}m -Xmx${jvm.xmx}m
 	<target name="3. deploy WIN" depends="jar, win native libs">
 
 		<!-- Copy JAR to release -->
-		<copy todir="release/win/lib" flatten="true">
-			<fileset dir="${dir.build}" includes="**/*.*" />
+		<copy todir="${dir.release}/win/lib" flatten="true">
+			<fileset dir="${dir.build}" includes="**/*.jar" />
+			<fileset dir="${dir.build}" includes="**/*.jnilib" />
 		</copy>
+		
+		<!--  Copy native libs archives to APP -->
+		<copy todir="${dir.release}/win/lib" flatten="false">
+			<fileset dir="${dir.build}" includes="**/windows32/*.*" />
+			<fileset dir="${dir.build}" includes="**/windows64/*.*" />
+		</copy>
+
+		<!--  Copy data to APP -->
 		<copy todir="release/win/data">
 			<fileset dir="${dir.data}" includes="**/*.*" />
 		</copy>
@@ -358,11 +348,11 @@ java -Djava.ext.dirs=lib -Djava.library.path=lib -Xms${jvm.xms}m -Xmx${jvm.xmx}m
 		<!-- Create launch4jconfig.xml file -->
 		<copy file="resources/launch4jconfig.tpl.xml" tofile="resources/launch4jconfig.xml" overwrite="true" />
 		<replace file="resources/launch4jconfig.xml">
-			<replacefilter token="JARPATH" value="${basedir}/release/win/lib/${main.class}.jar" />
+			<replacefilter token="JARPATH" value="lib/${main.class}.jar" />
 			<replacefilter token="EXENAME" value="${main.class}" />
-			<replacefilter token="EXEPATH" value="${basedir}/release/win/${main.class}.exe" />
+			<replacefilter token="EXEPATH" value="${basedir}/${dir.release}/win/${main.class}.exe" />
 			<replacefilter token="MAINCLASS" value="${main.package.name}${main.class}" />
-			<replacefilter token="LIBRAIRES" value="${class.pathApp}" />
+			<replacefilter token="LIBRAIRES" value="./lib/${class.pathApp}" />
 			<replacefilter token="PROJECT_AUTHOR" value="${project.author}" />
 			<replacefilter token="PROJECT_NAME" value="${project.name}" />
 			<replacefilter token="PROJECT_VERSION" value="${project.version}" />
