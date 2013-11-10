@@ -30,6 +30,13 @@ If the project already exists, and you want to use the build file :
 1. Rename and/or copy file in order to reflect file structure of `processing-project-template`.
 2. Try to run yout project and make sure it still works correctly. If not, read error log in the console, and take a look at your build path : some paths may have changed.
 
+### Copy libraries
+
+You will also need to fill up the `lib` folder.
+
+1. Copy all the required Processing libraries (.jar, .dll, .jnilib, etc.) into the `lib/processing` folder. Take a look at the README in the folder for more information
+2. Copy all the required contributed libraries into the `lib` folder. Once again, take a look at the README in the folder for more information
+3. In you eclipse workspace, link these .jar to the project by right-clicking on the .jar, and then **Build Path->Add to build path**
 
 ## Step 2 : Edit properties file
 
@@ -141,7 +148,7 @@ You will have a hard time configuring this build file with SimpleOpenNI on OSX b
 
 1. Delete al related file from the build.
 2. Recopy manually the folder named `SimpleOpenNi` into lib folder.
-3. 
+3. This should allow your application to find `SimpleOpenNi`
 
 
 ## Acknowledgement
