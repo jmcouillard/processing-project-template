@@ -3,6 +3,8 @@ package com;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
+import processing.core.PApplet;
+
 public class MyProject extends PApplet implements WindowFocusListener {
 
 	private static final long serialVersionUID = 1;

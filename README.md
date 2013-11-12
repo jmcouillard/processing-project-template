@@ -22,8 +22,9 @@ git clone https://github.com/jmcouillard/processing-project-template.git
 If you want to create a new, empty project :
 
 1. Copy and rename `processing-project-template` folder in your Eclipse *workspace*.
-2. Import the copied folder in Eclipse as a new project.
-3. Start your coding in `src/com/MyProject.java`.
+2. Import the copied folder in Eclipse. To do so, right-click inside the package explorer, then click on **Import->Existing Projects into Workspace**.
+3. Copy the libraries as explained in the next part.
+4. Start your coding in `src/com/MyProject.java`.
 
 If the project already exists, and you want to use the build file :
 
