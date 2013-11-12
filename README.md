@@ -1,11 +1,10 @@
 processing-project-template
 ===========================
 
-Custom project template and build ant file. Tested with Processing 2.0.3.
+Custom project template and build Ant file. Tested with Processing 2.0.3.
 
-## Step 1 : Create a project reflecting the template
 
-### Get a copy of the template
+## Step 1 : Get a copy of the template
 
 There are two ways to get a copy of the template. You may want to download it as a zip file :
 
@@ -17,29 +16,29 @@ Or, using the Terminal, clone the template repository to a folder of your choice
 git clone https://github.com/jmcouillard/processing-project-template.git
 ```
 
-### Create a compatible Eclipse project
 
-If you want to create a new, empty project :
+## Step 2 : Create a compatible Eclipse project
 
 1. Copy and rename `processing-project-template` folder in your Eclipse *workspace*.
 2. Import the copied folder in Eclipse. To do so, right-click inside the package explorer, then click on **Import->Existing Projects into Workspace**.
 3. Copy the libraries as explained in the next part.
-4. Start your coding in `src/com/MyProject.java`.
 
-If the project already exists, and you want to use the build file :
 
-1. Rename and/or copy file in order to reflect file structure of `processing-project-template`.
-2. Try to run yout project and make sure it still works correctly. If not, read error log in the console, and take a look at your build path : some paths may have changed.
-
-### Copy libraries
+## Step 3 : Copy libraries (.jar)
 
 You will also need to fill up the `lib` folder.
 
 1. Copy all the required Processing libraries (.jar, .dll, .jnilib, etc.) into the `lib/processing` folder. Take a look at the README in the folder for more information
-2. Copy all the required contributed libraries into the `lib` folder. Once again, take a look at the README in the folder for more information
+2. Copy all the required contributed libraries into the `lib` folder. Once again, take a look at the README in the folder for more information.
 3. In you eclipse workspace, link these .jar to the project by right-clicking on the .jar, and then **Build Path->Add to build path**
 
-## Step 2 : Edit properties file
+
+## Step 4 : Code!
+
+Start your coding in `src/com/MyProject.java`.
+
+
+## Step 5 : Prepare the build properties file
 
 Edit `resources/build.properties` with your favorite text editor, and modify properties to reflect your project.
 
@@ -66,9 +65,23 @@ And then, Windows specific variables :
 
 - **jvm.version.min** : minimum JVM version to allow (ex: 1.6.0)
 - **jvm.version.max** : maximum JVM version to allow (ex: 1.6.9)
-- **lauch4j.path** : the absolute path where you installed launch4j (see step 3)
+- **lauch4j.path** : the absolute path where you installed launch4j (see *launch4j* step)
 
-## Step 3 : Launch4j (to bundle windows executable)
+
+## Step 6 : Build
+
+In Eclipse, open *Ant* window and drag `build.xml` inside the *Ant* window. Click on the arrow to expand the possible build list.
+
+1. **deploy multi-plateform JAR** : copie de tous les fichiers pour macosx et windows en 32 et 64 bits. L'application peut-être lancée par un .bat ou un .sh selon la plate-forme.
+2. **deploy OSX** : wrap application in a macosx application (.app).
+3. **deploy WIN** : wrap application in a windows appplication (using *launch4j*, see next step).
+
+Double-click on wanted build. If errors occur, they will be listed in the Eclipse's console.
+
+Applications will be created in `/release` folder.
+
+
+## Optional : Launch4j to bundle windows executable
 
 Launch4j est utilisé pour créer un exe à partir de n'importe quel plate-forme, y compris OSX. Si vous ne souhaitez pas créer un fichier exe pour Windows, sautez cette étape.
 
@@ -81,16 +94,13 @@ git clone git://git.code.sf.net/p/launch4j/git launch4j-git
 git checkout Release_launch4j-3_0_2
 ```
 
-
 ### Build
 
 Dans le dossier du repository, exécuter le code suivant pour créer un fichier jar utilisable dans Eclipse.
 
-
 ```
 ant clean jar
 ```
-
 
 ### OSX only : Update binaries
 
@@ -112,7 +122,6 @@ make
 
 Finalement, copier les fichiers `binutils/windres` et `ld/ld-new` dans le dossier bin de *launch4j* (il faut renommer `ld-new` en `ld`). 
 
-
 ### Utiliser dans Eclipse (this is already included in the build.xml file)
 
 Copy launch config file to application (to avoid Cannot run program "./bin/windres" error) 
@@ -130,26 +139,13 @@ Définir la tâche *launch4j* et l'exécuter.
 ```
 
 
-## Step 4 : Build
-
-In Eclipse, open *Ant* window and drag `build.xml`. Click on the arrow to expand the possible build list.
-
-1. **deploy multi-plateform JAR** : copie de tous les fichiers pour macosx et windows en 32 et 64 bits. L'application peut-être lancée par un .bat ou un .sh selon la plate-forme.
-2. **deploy OSX** : wrap application in a macosx application (.app).
-3. **deploy WIN** : wrap application in a windows appplication (using *launch4j*).
-
-Double-click on wanted build. If errors occur, they will be listed in the Eclipse's console.
-
-Applications will be created in `/release` folder.
-
-
-## Using SimpleOpenNI ?
+## Optional : Using SimpleOpenNI ?
 
 You will have a hard time configuring this build file with SimpleOpenNI on OSX because of that weird function getLibraryPathLinux() that it is used in SimpleOpenNI.java. To make it work:
 
 1. Delete al related file from the build.
 2. Recopy manually the folder named `SimpleOpenNi` into lib folder.
-3. This should allow your application to find `SimpleOpenNi`
+3. This should allow your application to find `SimpleOpenNi` library.
 
 
 ## Acknowledgement
