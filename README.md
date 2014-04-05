@@ -4,6 +4,10 @@ processing-project-template
 Custom project template and build Ant file. Tested with Processing 2.0.3.
 
 
+## Requirements
+
+- Have a Java JDK 7 installed. You may install it from [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html?ssSourceSiteId=ocomen).
+
 ## Step 1 : Get a copy of the template
 
 There are two ways to get a copy of the template. You may want to download it as a zip file :

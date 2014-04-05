@@ -3,6 +3,13 @@ Bundle your app in an executable file
 
 Here is how to create an .exe or .app file from your code.
 
+The following procedure has been written for OSX users.
+
+## Requirements
+
+- Little terminal knowledge
+- XCode developer command-line tools ([more info here](http://osxdaily.com/2012/05/22/install-wget-mac-os-x/))
+
 ## Step 1 : Prepare the build properties file
 
 Edit `resources/build.properties` with your favorite text editor, and modify properties to reflect your project.
@@ -75,7 +82,7 @@ D'abord aller dans le dossier bin de launch4j :
 cd launch4j-git/bin
 ```
 
-Ensuite, télécharger la plus récente version des binutils, disponible au [http://www.gnu.org/software/binutils/](http://www.gnu.org/software/binutils/). Ensuite, il faut exécuter la commande *make* pour créer les fichier binaires.
+Télécharger la plus récente version des binutils, disponible au [http://www.gnu.org/software/binutils/](http://www.gnu.org/software/binutils/). Ensuite, il faut exécuter la commande *make* pour créer les fichier binaires.
 
 ```
 wget http://ftp.gnu.org/gnu/binutils/binutils-2.23.2.tar.gz
