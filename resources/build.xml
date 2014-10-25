@@ -79,7 +79,7 @@
 
 		<!-- Copy required projects -->
 		<copy todir="${dir.tmp}/java">
-			<fileset dir="../" includes="${dir.requiredProjects}" />
+			<fileset dir="${dir.requiredProjectsDir}" includes="${dir.requiredProjects}" />
 		</copy>
 
 		<!-- Build -->
@@ -149,7 +149,7 @@
 			<fileset dir="${dir.libNat}" includes="**/macosx64/plugins/*.so" />
 		</copy>
 		<copy todir="${dir.build}/macosx" flatten="true">
-			<fileset dir="${dir.libNat}" includes="**/macosx/*.*" excludes="**/macosx/*.jnilib"/>
+			<fileset dir="${dir.libNat}" includes="**/macosx/*.*"/>
 		</copy>
 		
 	</target>

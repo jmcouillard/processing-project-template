@@ -8,6 +8,7 @@ The following procedure has been written for OSX users.
 ## Requirements
 
 - Little terminal knowledge
+- Minimal git knowledge
 - XCode developer command-line tools ([more info here](http://osxdaily.com/2012/05/22/install-wget-mac-os-x/))
 
 ## Step 1 : Prepare the build properties file
