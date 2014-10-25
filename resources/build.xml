@@ -227,13 +227,13 @@
 		<!-- Copy exec JavaApplicationStub without turning it into a txt -->
 		<exec executable="cp">
 			<arg value="-rp" />
-			<arg value="resources/JavaApplicationStub" />
+			<arg value="resources/Processing" />
 			<arg value="${dir.release}/osx/${project.name}.app/Contents/MacOS" />
 		</exec>
 		
 		<exec executable="chmod">
 			<arg value="+x" />
-			<arg value="${dir.release}/osx/${project.name}.app/Contents/MacOS/JavaApplicationStub" />
+			<arg value="${dir.release}/osx/${project.name}.app/Contents/MacOS/Processing" />
 		</exec>
 
 		<!-- Create .APP classpath -->
@@ -261,24 +261,24 @@
 		<copy file="resources/application.icns" todir="${dir.release}/osx/${project.name}.app/Contents/Resources/" />
 
 		<!-- Copy jar archives to APP -->
-		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java" flatten="true">
+		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Java" flatten="true">
 			<fileset dir="${dir.build}" includes="**/*.jar" />
 			<fileset dir="${dir.build}" includes="**/*.jnilib" />
 		</copy>
 
 		<!--  Copy native libs archives to APP -->
-		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java" flatten="false">
+		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Java" flatten="false">
 			<fileset dir="${dir.build}/macosx" includes="**/*.jnilib" />
 		</copy>
-		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java/macosx32" flatten="false">
+		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Java/macosx32" flatten="false">
 			<fileset dir="${dir.build}/macosx32" includes="**/*.*" />
 		</copy>
-		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java/macosx64" flatten="false">
+		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Java/macosx64" flatten="false">
 			<fileset dir="${dir.build}/macosx64" includes="**/*.*" />
 		</copy>
 		
 		<!-- Copy data folder to APP -->
-		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Resources/Java/data" flatten="false">
+		<copy todir="${dir.release}/osx/${project.name}.app/Contents/Java/data" flatten="false">
 			<fileset dir="${dir.data}" includes="**/*.*" />
 		</copy>
 
@@ -306,7 +306,7 @@
 		<!-- Copy exec JavaApplicationStub without turning it into a txt -->
 		<exec executable="cp">
 			<arg value="-rp" />
-			<arg value="${dir.release}/osx/${project.name}.app/Contents/MacOS/JavaApplicationStub" />
+			<arg value="${dir.release}/osx/${project.name}.app/Contents/MacOS/Processing" />
 			<arg value="${dir.tmp}/image/${project.name}.app/Contents/MacOS" />
 		</exec>
 
