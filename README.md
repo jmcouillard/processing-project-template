@@ -32,6 +32,8 @@ git clone https://github.com/jmcouillard/processing-project-template.git
 
 You will also need to fill up the `lib` folder.
 
+**THIS SECTION NEED TO BE UPDATED : A SCRIPT NOW DO THIS JOB FOR YOU**
+
 1. Copy all the required **Processing** libraries (.jar, .dll, .jnilib, etc.) into the `lib/processing` folder. Take a look at the [README](https://github.com/jmcouillard/processing-project-template/tree/master/lib/processing) in the folder for more information. You can find the main libraries that you need to copy in `Processing.app/Contents/Java/core/library` (on OSX). 
 2. Copy all the required **contributed** libraries into the `lib` folder. Once again, take a look at the [README](https://github.com/jmcouillard/processing-project-template/tree/master/lib) in the folder for more information.
 3. In you eclipse workspace, link these .jar to the project by right-clicking on the .jar, and then **Build Path->Add to build path**
