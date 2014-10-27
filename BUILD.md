@@ -94,21 +94,3 @@ make
 ```
 
 Finalement, copier les fichiers `binutils/windres` et `ld/ld-new` dans le dossier bin de *launch4j* (il faut renommer `ld-new` en `ld`). 
-
-### Utiliser dans Eclipse (this is already included in the build.xml file)
-
-Copy launch config file to application (to avoid Cannot run program "./bin/windres" error) 
-
-```
-<copy file="resources/launch4jconfig.xml" todir="${launch4j.dir}" overwrite="true" />
-<copy file="resources/icon.ico" todir="${launch4j.dir}" overwrite="true"  />
-```
-
-Définir la tâche *launch4j* et l'exécuter.
-
-```
-<taskdef name="launch4j" classname="net.sf.launch4j.ant.Launch4jTask" classpath="${launch4j.dir}/launch4j.jar:${launch4j.dir}/lib/xstream.jar" />
-<launch4j configFile="${launch4j.dir}/launch4jconfig.xml" />
-```
-
-

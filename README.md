@@ -30,14 +30,14 @@ git clone https://github.com/jmcouillard/processing-project-template.git
 
 ## Step 3 : Copy libraries (.jar)
 
-You will also need to fill up the `lib` folder.
+Next step is to build Processing and copy the .jar to the `lib/processing` folder.
 
-**THIS SECTION NEED TO BE UPDATED : A SCRIPT NOW DO THIS JOB FOR YOU**
+1. Make sure that you have git command-line installed.
+2. Clone https://github.com/processing/processing on your computer using `git clone https://github.com/processing/processing.git`.
+3. Update locations paths and choose your Processing version at the top of `lib/processing/update_processing.sh`.
+4. Exectute the script using `sh ./lib/processing/update_processing.sh`
 
-1. Copy all the required **Processing** libraries (.jar, .dll, .jnilib, etc.) into the `lib/processing` folder. Take a look at the [README](https://github.com/jmcouillard/processing-project-template/tree/master/lib/processing) in the folder for more information. You can find the main libraries that you need to copy in `Processing.app/Contents/Java/core/library` (on OSX). 
-2. Copy all the required **contributed** libraries into the `lib` folder. Once again, take a look at the [README](https://github.com/jmcouillard/processing-project-template/tree/master/lib) in the folder for more information.
-3. In you eclipse workspace, link these .jar to the project by right-clicking on the .jar, and then **Build Path->Add to build path**
-
+If you are using contributed libraries, you will also need to copy them int the `lib` folder.
 
 ## Step 4 : Code!
 
@@ -46,9 +46,8 @@ Start your coding in `src/com/MyProject.java`.
 
 ## Optional : Bundle your app in an executable file
 
-You may also bundle you app in an executable file if you wish so. More details here.
-
-[https://github.com/jmcouillard/processing-project-template/blob/master/BUILD.md](https://github.com/jmcouillard/processing-project-template/blob/master/BUILD.md)
+You may also bundle you app in an executable file if you wish so. More details in 
+[BUILD.md](BUILD.md).
 
 
 ## Optional : Using SimpleOpenNI ?

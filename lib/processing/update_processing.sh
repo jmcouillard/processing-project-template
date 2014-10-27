@@ -6,7 +6,6 @@
 # 3. Choose your Processing version
 # 4. Run this script
 
-clear
 
 # ################
 # DEFINE VARIABLES
@@ -20,6 +19,12 @@ P5_DIR="${PROJECT_DIR}/lib/processing"
 #  Github tag
 P5_VERSION="processing-0227-2.2.1"
 
+
+# ##################
+# Clear screen
+# ##################
+
+clear
 
 # ##################
 # UPDATE FROM Github
